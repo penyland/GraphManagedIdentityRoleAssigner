@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphManagedIdentityRoleAssigner", "src\GraphManagedIdentityRoleAssigner\GraphManagedIdentityRoleAssigner.csproj", "{DC3B01EC-7A6D-459C-BD22-A96C447E1BBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{404B8E22-1570-4BC9-9F30-5E70D549850F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC3B01EC-7A6D-459C-BD22-A96C447E1BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC3B01EC-7A6D-459C-BD22-A96C447E1BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC3B01EC-7A6D-459C-BD22-A96C447E1BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC3B01EC-7A6D-459C-BD22-A96C447E1BBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D5D113E-1B6B-4A4F-8365-33C676511DD7}
+	EndGlobalSection
+EndGlobal
