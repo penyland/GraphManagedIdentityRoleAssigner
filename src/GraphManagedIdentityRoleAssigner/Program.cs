@@ -1,11 +1,11 @@
-﻿using System;
-using GraphManagedIdentityRoleAssigner;
+﻿using GraphManagedIdentityRoleAssigner;
 using GraphManagedIdentityRoleAssigner.Commands;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)
     .AddEnvironmentVariables()
     .AddJsonFile("appsettings.json", true)
+    .AddUserSecrets<Program>()
     .Build();
 
 var serviceCollection = new ServiceCollection();
@@ -15,7 +15,9 @@ serviceCollection
     .AddLogging(config =>
     {
         config.AddConsole();
-    });
+    })
+    .AddOptions()
+    .Configure<AzureAdOptions>(options => configuration.GetSection("AzureAd").Bind(options));
 
 var registrar = new TypeRegistrar(serviceCollection);
 
@@ -28,9 +30,6 @@ app.Configure(config =>
           .WithExample(new string[] { "hello", "--name", "World" });
 });
 
-AnsiConsole.Write(
-    new FigletText("GraphManagedIdentityRoleAssigner")
-        .LeftJustified()
-        .Color(Color.Red));
+AnsiConsole.WriteLine("GraphManagedIdentityRoleAssigner");
 
 return await app.RunAsync(args);
