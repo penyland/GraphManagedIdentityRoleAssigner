@@ -22,7 +22,10 @@ internal class HelloCommand : AsyncCommand<HelloCommand.Settings>
                 new() { Id = 0, Text = "Exit" },
                 new() { Id = 1, Text = "Display access token" },
                 new() { Id = 2, Text = "List users" },
-                new() { Id = 3, Text = "Get service principals" },
+                new() { Id = 3, Text = "Get all applications" },
+                new() { Id = 4, Text = "Get service principals" },
+                new() { Id = 5, Text = "Get app roles" },
+                new() { Id = 6, Text = "Get object id of service principal" },
             });
 
         var selected = AnsiConsole.Prompt(prompt);
@@ -73,6 +76,37 @@ internal class HelloCommand : AsyncCommand<HelloCommand.Settings>
                 try
                 {
                     GraphHelper.InitializeGraphForAppAuthOnly(options.Value);
+                    var applications = await GraphHelper.GetApplicationsWithTagAsync("Singapore");
+
+                    if (applications == null)
+                    {
+                        AnsiConsole.WriteLine("No applications found");
+                        return 0;
+                    }
+
+                    foreach (var application in applications)
+                    {
+                        AnsiConsole.MarkupLine($"DisplayName: [bold yellow]{application.DisplayName}[/]");
+                        AnsiConsole.MarkupLine($"Id: [bold yellow]{application.Id}[/]");
+
+                        foreach (var t in application.Tags!)
+                        {
+                            AnsiConsole.MarkupLine($"  Tag: [bold yellow]{t}[/]");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
+
+                break;
+
+            case 4:
+                try
+                {
+                    GraphHelper.InitializeGraphForAppAuthOnly(options.Value);
                     var response = await GraphHelper.GetServicePrincipal();
 
                     if (response?.Value?.Count > 0)
@@ -90,6 +124,35 @@ internal class HelloCommand : AsyncCommand<HelloCommand.Settings>
                         AnsiConsole.MarkupLineInterpolated($"DisplayName: [bold yellow]{selectedServicePrincipal?.DisplayName}[/]");
                         AnsiConsole.MarkupLineInterpolated($"ObjectId: [bold yellow]{selectedServicePrincipal?.Id}[/]");
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
+
+                break;
+
+            case 5:
+                try
+                {
+                    GraphHelper.InitializeGraphForAppAuthOnly(options.Value);
+                    await GraphHelper.GetApplicationRoles();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
+
+                break;
+
+            case 6:
+                try
+                {
+                    GraphHelper.InitializeGraphForAppAuthOnly(options.Value);
+                    var enterpriseApplicationId = await GraphHelper.GetEnterpriseApplicationIdAsync(appId);
+                    AnsiConsole.MarkupLine($"EnterpriseApplicationId: [bold yellow]{enterpriseApplicationId}[/]");
                 }
                 catch (Exception ex)
                 {
