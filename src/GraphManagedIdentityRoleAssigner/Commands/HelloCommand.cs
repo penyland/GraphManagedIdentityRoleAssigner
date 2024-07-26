@@ -151,6 +151,7 @@ internal class HelloCommand : AsyncCommand<HelloCommand.Settings>
                 try
                 {
                     GraphHelper.InitializeGraphForAppAuthOnly(options.Value);
+                    var appId = "enter-guid-here";
                     var enterpriseApplicationId = await GraphHelper.GetEnterpriseApplicationIdAsync(appId);
                     AnsiConsole.MarkupLine($"EnterpriseApplicationId: [bold yellow]{enterpriseApplicationId}[/]");
                 }
